@@ -1,0 +1,70 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Insidr</title>
+<meta name="robots" content="noindex">
+<link rel="icon" href="/favicon.png">
+<link rel="stylesheet" href="/t/assets/tipster.css">
+<script>
+  try {
+    var s = localStorage.getItem('insidr-theme');
+    if (s === 'light' || s === 'dark') document.documentElement.setAttribute('data-theme', s);
+  } catch (e) {}
+</script>
+</head>
+<body data-api="https://api.insidr.tips">
+<header class="nav">
+  <div class="wrap nav-inner">
+    <a class="brand" href="/" aria-label="Insidr home"><span class="logo-mark" role="img" aria-label="Insidr"></span></a>
+    <div class="nav-actions"><a class="btn btn-primary" href="https://www.insidr.tips">Open app</a></div>
+  </div>
+</header>
+<main class="wrap">
+  <section class="hero">
+    <div id="state">
+      <h1>Page not found</h1>
+      <p class="headline-label">The link may be mistyped, or the page may have moved.</p>
+      <p style="margin-top:22px"><a class="btn btn-primary btn-lg" href="/">Go to Insidr</a></p>
+    </div>
+  </section>
+</main>
+<script>
+(function () {
+  var m = location.pathname.match(/^\/t\/([A-Za-z0-9._-]{1,64})\/?$/);
+  if (!m) return;
+  var username = m[1];
+  var api = document.body.dataset.api;
+  var state = document.getElementById('state');
+  state.innerHTML = '<h1>Loading…</h1>';
+
+  fetch(api + '/api/public/tipster/' + encodeURIComponent(username), { headers: { accept: 'application/json' } })
+    .then(function (r) { if (!r.ok) throw new Error(r.status); return r.json(); })
+    .then(function (d) {
+      var all = d.allTime;
+      var esc = function (s) { return String(s == null ? '' : s).replace(/[&<>"']/g, function (c) {
+        return ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' })[c]; }); };
+      var name = esc(d.displayName || d.username);
+      var body = all.totalGames > 0
+        ? '<span class="headline-value ' + (all.roi > 0 ? 'pos' : all.roi < 0 ? 'neg' : '') + '">' +
+          (all.roi > 0 ? '+' : '') + all.roi.toFixed(1) + '%</span>' +
+          '<span class="headline-label">return on investment across <b>' + all.totalGames +
+          '</b> settled tips, at a <b>' + all.winRate.toFixed(1) + '%</b> win rate.</span>'
+        : '<span class="headline-value">No settled tips yet</span>' +
+          '<span class="headline-label">' + name + ' has joined Insidr but has no settled tips so far.</span>';
+
+      state.innerHTML =
+        '<h1>' + name + '</h1><p class="handle">@' + esc(d.username) + '</p>' +
+        '<p class="headline">' + body + '</p>' +
+        '<p style="margin-top:26px"><a class="btn btn-primary btn-lg" href="https://www.insidr.tips">Open in Insidr</a></p>';
+    })
+    .catch(function () {
+      state.innerHTML =
+        '<h1>Page not found</h1><p class="headline-label">We couldn\'t find a tipster at this address.</p>' +
+        '<p style="margin-top:22px"><a class="btn btn-primary btn-lg" href="/">Go to Insidr</a></p>';
+    });
+})();
+</script>
+</body>
+</html>
