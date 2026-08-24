@@ -1,0 +1,211 @@
+/* ---------------------------------------------------------------------------
+   Public tipster record pages (/t/<username>/).
+
+   Tokens, chrome and theme mechanics are lifted from the landing page so these
+   pages read as part of the same site rather than a satellite. Three theme
+   states are honoured exactly as index.html does them: the media query for the
+   default (unstamped) state, and both data-theme stamps so the toggle wins in
+   either direction.
+--------------------------------------------------------------------------- */
+
+:root {
+  --bg:#F2F3F7; --bg-2:#FFFFFF; --surface:#FFFFFF; --surface-2:#F5F6FA;
+  --chrome:#0B1322;
+  --border:#E2E5EC; --border-strong:#D2D7E0;
+  --ink:#131722; --ink-muted:#55607A; --ink-faint:#7B8598;
+  --accent:#0C8C88; --accent-ink:#FFFFFF; --accent-soft:#E4F4F3;
+  --gold:#9A6B00; --gold-fill:#F0A500; --gold-soft:#FBEFD4;
+  --win:#2E7D32; --loss:#C62828; --brand:#1A2980;
+  --shadow:0 1px 2px rgba(16,22,40,.04), 0 8px 30px rgba(16,22,40,.06);
+  --shadow-lg:0 30px 70px rgba(10,17,32,.14);
+  --maxw:1140px;
+  --font-sans: system-ui, -apple-system, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+  --font-mono: ui-monospace, "SF Mono", "Cascadia Code", "JetBrains Mono", Menlo, Consolas, monospace;
+  --c-ink:#F4F7FC; --c-muted:#AEB8CC; --c-faint:#6E7A92;
+  --c-line:rgba(255,255,255,.09); --c-line-2:rgba(255,255,255,.16);
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --bg:#0A1120; --bg-2:#0D1526; --surface:#131D30; --surface-2:#182541;
+    --border:rgba(255,255,255,.08); --border-strong:rgba(255,255,255,.16);
+    --ink:#F4F7FC; --ink-muted:#9EABC2; --ink-faint:#66738C;
+    --accent:#2FD8D2; --accent-ink:#052228; --accent-soft:#122E36;
+    --gold:#F0A500; --gold-fill:#F0A500; --gold-soft:#2A2210;
+    --win:#3FCF74; --loss:#F0645F; --brand:#93A4FF;
+    --shadow:0 1px 2px rgba(0,0,0,.3), 0 12px 40px rgba(0,0,0,.35);
+    --shadow-lg:0 40px 90px rgba(0,0,0,.55);
+  }
+}
+:root[data-theme="dark"] {
+  --bg:#0A1120; --bg-2:#0D1526; --surface:#131D30; --surface-2:#182541;
+  --border:rgba(255,255,255,.08); --border-strong:rgba(255,255,255,.16);
+  --ink:#F4F7FC; --ink-muted:#9EABC2; --ink-faint:#66738C;
+  --accent:#2FD8D2; --accent-ink:#052228; --accent-soft:#122E36;
+  --gold:#F0A500; --gold-fill:#F0A500; --gold-soft:#2A2210;
+  --win:#3FCF74; --loss:#F0645F; --brand:#93A4FF;
+  --shadow:0 1px 2px rgba(0,0,0,.3), 0 12px 40px rgba(0,0,0,.35);
+  --shadow-lg:0 40px 90px rgba(0,0,0,.55);
+}
+
+* { box-sizing:border-box; }
+html { scroll-behavior:smooth; }
+@media (prefers-reduced-motion: reduce) { html { scroll-behavior:auto; } }
+
+body {
+  margin:0;
+  background:var(--bg);
+  color:var(--ink);
+  font-family:var(--font-sans);
+  font-size:16px;
+  line-height:1.55;
+  -webkit-font-smoothing:antialiased;
+}
+a { color:inherit; }
+.wrap { max-width:var(--maxw); margin:0 auto; padding:0 20px; }
+
+/* --- dark chrome bookends, same as the landing page ---------------------- */
+.nav { background:var(--chrome); color:var(--c-ink); border-bottom:1px solid var(--c-line); }
+.nav-inner { display:flex; align-items:center; gap:16px; justify-content:space-between; height:64px; }
+.brand { display:inline-flex; align-items:center; text-decoration:none; }
+.logo-mark {
+  display:inline-block; width:104px; height:26px;
+  background:url("/logo.png") left center / contain no-repeat;
+}
+.nav-actions { display:flex; align-items:center; gap:10px; }
+.theme-toggle {
+  display:inline-grid; place-items:center; width:36px; height:36px;
+  border-radius:10px; border:1px solid var(--c-line-2);
+  background:transparent; color:var(--c-ink); cursor:pointer;
+  transition:background .18s cubic-bezier(.22,1,.36,1);
+}
+.theme-toggle:hover { background:rgba(255,255,255,.08); }
+
+.btn {
+  display:inline-flex; align-items:center; justify-content:center; gap:8px;
+  padding:12px 20px; border-radius:12px; font-weight:650; font-size:15px;
+  text-decoration:none; border:1px solid transparent; cursor:pointer;
+  transition:transform .18s cubic-bezier(.22,1,.36,1), background .18s, border-color .18s;
+}
+.btn-primary { background:var(--accent); color:var(--accent-ink); }
+.btn-primary:hover { transform:translateY(-1px); }
+.btn-ghost { border-color:var(--c-line-2); color:var(--c-ink); }
+.btn-ghost:hover { background:rgba(255,255,255,.08); }
+.btn-lg { padding:15px 26px; font-size:16px; }
+@media (prefers-reduced-motion: reduce) { .btn:hover { transform:none; } }
+
+/* --- identity ------------------------------------------------------------ */
+.hero { padding:clamp(32px,6vw,64px) 0 clamp(24px,4vw,40px); }
+.who { display:flex; align-items:center; gap:18px; flex-wrap:wrap; }
+.avatar {
+  width:76px; height:76px; border-radius:50%; object-fit:cover; flex:none;
+  border:1px solid var(--border-strong); background:var(--surface-2);
+}
+.avatar-fallback {
+  display:grid; place-items:center;
+  font-size:30px; font-weight:700; color:var(--accent-ink); background:var(--accent);
+  border-color:transparent;
+}
+.who h1 {
+  margin:0; font-size:clamp(28px,4.4vw,42px); line-height:1.1;
+  letter-spacing:-.02em; text-wrap:balance;
+}
+.handle { margin:4px 0 0; color:var(--ink-muted); font-family:var(--font-mono); font-size:14px; }
+
+/* --- headline figures ---------------------------------------------------- */
+/* Two figures at equal weight, never one giant number: the record and the
+   return carry the same visual authority, so the sample a percentage rests on
+   cannot be skimmed past. At one settled tip that reads honestly ("0 of 1")
+   and at four hundred it still reads well — which is why this needs no
+   minimum-sample rule to stay truthful. */
+.headline { margin:clamp(26px,4vw,38px) 0 0; }
+.figures {
+  display:flex; flex-wrap:wrap; gap:clamp(24px,6vw,64px); align-items:flex-start;
+}
+.figure { min-width:0; }
+.figure-value {
+  display:block; font-size:clamp(40px,7.5vw,68px); line-height:1;
+  font-weight:800; letter-spacing:-.035em; font-variant-numeric:tabular-nums;
+}
+.figure-value .of {
+  font-size:.44em; font-weight:600; letter-spacing:0; color:var(--ink-muted);
+  padding:0 .18em;
+}
+.figure-value.pos { color:var(--win); }
+.figure-value.neg { color:var(--loss); }
+.figure-label { display:block; margin-top:9px; font-size:14px; color:var(--ink-muted); }
+
+/* Empty state keeps a single line — there is no second figure to balance. */
+.headline-value {
+  display:block; font-size:clamp(30px,5vw,44px); line-height:1.1;
+  font-weight:800; letter-spacing:-.03em;
+}
+.headline-label { display:block; margin-top:12px; font-size:15px; color:var(--ink-muted); max-width:60ch; }
+.headline-label b { color:var(--ink); font-weight:650; }
+
+/* --- period comparison --------------------------------------------------- */
+/* A real two-period table, not four repeated stat cards: the interesting thing
+   is career against current form, and that comparison is genuinely 2D data. */
+.record { margin:clamp(30px,5vw,46px) 0 0; }
+.record h2 { font-size:14px; letter-spacing:.02em; margin:0 0 12px; color:var(--ink-muted); font-weight:650; }
+.table-scroll { overflow-x:auto; border:1px solid var(--border); border-radius:16px; background:var(--surface); box-shadow:var(--shadow); }
+table { border-collapse:collapse; width:100%; min-width:420px; }
+caption { text-align:left; padding:16px 20px 0; color:var(--ink-muted); font-size:13px; }
+th, td { padding:14px 20px; text-align:right; }
+th:first-child, td:first-child { text-align:left; }
+thead th {
+  font-size:12px; letter-spacing:.04em; text-transform:uppercase;
+  color:var(--ink-muted); font-weight:650; border-bottom:1px solid var(--border);
+  white-space:nowrap;
+}
+tbody th { font-weight:500; color:var(--ink-muted); font-size:15px; }
+tbody td { font-family:var(--font-mono); font-variant-numeric:tabular-nums; font-size:17px; font-weight:600; }
+tbody tr + tr th, tbody tr + tr td { border-top:1px solid var(--border); }
+td.pos { color:var(--win); }
+td.neg { color:var(--loss); }
+td.none { color:var(--ink-faint); font-weight:500; }
+
+/* --- how the record is produced ------------------------------------------ */
+/* The actual differentiator, stated as mechanism rather than a "verified" badge:
+   a badge asserts trust, a mechanism lets the reader award it. */
+.method { margin:clamp(30px,5vw,46px) 0 0; padding:24px; border-radius:16px; background:var(--accent-soft); }
+.method h2 { margin:0 0 6px; font-size:17px; letter-spacing:-.01em; }
+.method p { margin:0 0 14px; color:var(--ink-muted); font-size:15px; max-width:68ch; }
+.method ul { margin:0; padding:0; list-style:none; display:grid; gap:10px; }
+.method li { position:relative; padding-left:26px; font-size:15px; }
+.method li::before {
+  content:""; position:absolute; left:6px; top:.62em; width:7px; height:7px;
+  border-radius:50%; background:var(--accent);
+}
+
+/* --- conversion ----------------------------------------------------------- */
+.cta {
+  margin:clamp(30px,5vw,46px) 0 clamp(48px,8vw,84px);
+  padding:clamp(24px,4vw,34px); border-radius:18px;
+  background:var(--chrome); color:var(--c-ink);
+  display:flex; flex-wrap:wrap; align-items:center; justify-content:space-between; gap:20px;
+}
+.cta h2 { margin:0 0 6px; font-size:clamp(19px,2.6vw,24px); letter-spacing:-.02em; }
+.cta p { margin:0; color:var(--c-muted); font-size:15px; max-width:52ch; }
+.cta .price { color:var(--c-ink); font-weight:700; }
+.cta-actions { display:flex; gap:10px; flex-wrap:wrap; }
+
+/* --- freshness ------------------------------------------------------------ */
+.asof { margin:14px 0 0; font-size:13px; color:var(--ink-faint); display:flex; align-items:center; gap:7px; }
+.dot { width:7px; height:7px; border-radius:50%; background:var(--ink-faint); flex:none; }
+.asof.live .dot { background:var(--win); }
+
+/* --- footer --------------------------------------------------------------- */
+.ft { background:var(--chrome); color:var(--c-muted); border-top:1px solid var(--c-line); padding:34px 0; }
+.ft a { color:var(--c-muted); text-decoration:none; }
+.ft a:hover { color:var(--c-ink); }
+.ft-bottom { display:flex; flex-wrap:wrap; gap:12px; justify-content:space-between; align-items:center; font-size:13.5px; }
+.ft-links { display:flex; gap:18px; flex-wrap:wrap; }
+.age {
+  display:inline-grid; place-items:center; min-width:30px; height:22px; padding:0 7px;
+  border-radius:999px; border:1px solid var(--c-line-2); color:var(--c-ink);
+  font-size:11.5px; font-weight:700;
+}
+
+:where(a, button, [tabindex]):focus-visible {
+  outline:2px solid var(--accent); outline-offset:3px; border-radius:6px;
+}

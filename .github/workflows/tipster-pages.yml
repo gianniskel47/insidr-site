@@ -1,0 +1,61 @@
+name: Build tipster pages
+
+# Regenerates /t/<username>/index.html for every live tipster, plus sitemap.xml.
+#
+# The figures on those pages refresh themselves in the visitor's browser, so this
+# workflow is not what keeps them current. It exists so that each tipster has a
+# file of their own for link-preview crawlers and search engines, which never run
+# JavaScript.
+#
+# Three ways in:
+#   repository_dispatch — the API fires this when a tipster activates or changes
+#                         their price, so a new page exists within a minute rather
+#                         than at the next scheduled run.
+#   schedule            — a daily safety net in case a dispatch is ever missed.
+#   workflow_dispatch   — manual, from the Actions tab.
+
+on:
+  repository_dispatch:
+    types: [tipsters-changed]
+  schedule:
+    - cron: '17 4 * * *'
+  workflow_dispatch:
+
+# Never let two runs commit over each other; the newest data is the one to keep.
+concurrency:
+  group: tipster-pages
+  cancel-in-progress: true
+
+permissions:
+  contents: write
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+
+      - name: Generate pages
+        env:
+          API_BASE: ${{ vars.API_BASE || 'https://api.insidr.tips' }}
+          APP_URL: ${{ vars.APP_URL || 'https://www.insidr.tips' }}
+          SITE_URL: ${{ vars.SITE_URL || 'https://insidr.tips' }}
+        run: node scripts/generate-tipster-pages.mjs
+
+      - name: Commit if anything changed
+        run: |
+          git config user.name  "insidr-bot"
+          git config user.email "actions@users.noreply.github.com"
+          git add t sitemap.xml 404.html
+          # Nothing to do on a run where no tipster's page actually changed —
+          # an empty commit every day would bury the real history.
+          if git diff --staged --quiet; then
+            echo "No changes."
+            exit 0
+          fi
+          git commit -m "Rebuild tipster pages"
+          git push
