@@ -11,14 +11,19 @@ name: Build tipster pages
 #   repository_dispatch — the API fires this when a tipster activates or changes
 #                         their price, so a new page exists within a minute rather
 #                         than at the next scheduled run.
-#   schedule            — a daily safety net in case a dispatch is ever missed.
+#   schedule            — twice-daily safety net in case a dispatch is ever missed.
+#                         It is only that: the page carries no statistics in its meta tags,
+#                         and everything it does bake (name, avatar, price, who exists) is
+#                         already in the API's roster signature, so a real change arrives by
+#                         dispatch within ~2 minutes. This covers the backend being down, an
+#                         expired token, or a dispatch that failed.
 #   workflow_dispatch   — manual, from the Actions tab.
 
 on:
   repository_dispatch:
     types: [tipsters-changed]
   schedule:
-    - cron: '17 4 * * *'
+    - cron: '17 4,16 * * *'
   workflow_dispatch:
 
 # Never let two runs commit over each other; the newest data is the one to keep.

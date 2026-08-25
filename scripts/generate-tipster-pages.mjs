@@ -60,7 +60,6 @@ const pct     = (n) => `${Number(n).toFixed(1)}%`;
 const signed  = (n) => `${Number(n) > 0 ? '+' : ''}${Number(n).toFixed(1)}%`;
 const odds    = (n) => Number(n).toFixed(2);
 const sign    = (n) => (Number(n) > 0 ? 'pos' : Number(n) < 0 ? 'neg' : '');
-const tips    = (n) => `${n} settled tip${Number(n) === 1 ? '' : 's'}`;
 
 /* -- template -------------------------------------------------------------- */
 
@@ -80,16 +79,24 @@ function renderPage(t) {
 
   // The preview card is the advertisement: it leads with the number, because a
   // card that reads "Insidr" converts far worse than one that reads "+12.4% ROI".
-  // The record leads, the return follows. Putting the percentage first invites a
-  // reader to take "+94.5%" at face value; putting "2 of 2" first makes the size
-  // of the sample the first thing they learn, without hiding anything.
-  const ogTitle = hasRecord
-    ? `${rawName} — ${all.wins} of ${tips(all.totalGames)} won · ${signed(all.roi)} ROI`
-    : `${rawName} on Insidr`;
-
-  const ogDescription = hasRecord
-    ? `${pct(all.winRate)} win rate · Average odds ${odds(all.avgOdds)}. Every tip is priced from bookmaker odds, locked at kick-off and settled automatically — the record cannot be edited.`
-    : `Verified tipster on Insidr. Every tip is priced from bookmaker odds, locked at kick-off and settled automatically — the record cannot be edited.`;
+  // Deliberately free of statistics.
+  //
+  // These tags are the only part of the page a preview crawler reads, and they are frozen
+  // at build time — so any figure placed here is stale the moment the next result settles.
+  // Worse, it is stale in the one place nobody can refresh: a card already pasted into a
+  // chat. A tipster who deleted three losing bets kept advertising "-21.8% ROI" for a day
+  // after the real number had moved to -4.7%.
+  //
+  // There is a second reason, and it may be the better one: a card leading with a negative
+  // return is a card nobody shares. Pinning the preview to the claim rather than the score
+  // makes the link worth sending on a bad week as well as a good one — and the claim is
+  // both always true and the thing that actually distinguishes us.
+  //
+  // The figures still ship inside the page body, where the browser refreshes them on load.
+  const ogTitle = `${rawName} — verified tipster on Insidr`;
+  const ogDescription =
+    'Every tip is priced from bookmaker odds, locked before kick-off and settled '
+    + 'automatically. The record cannot be edited.';
 
   const ogImage = avatar || `${SITE_URL}/logo.png`;
 
