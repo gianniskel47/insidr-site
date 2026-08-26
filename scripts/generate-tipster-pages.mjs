@@ -56,7 +56,6 @@ function safeImageUrl(url) {
 
 /* -- formatting ------------------------------------------------------------ */
 
-const pct     = (n) => `${Number(n).toFixed(1)}%`;
 const signed  = (n) => `${Number(n) > 0 ? '+' : ''}${Number(n).toFixed(1)}%`;
 const odds    = (n) => Number(n).toFixed(2);
 const sign    = (n) => (Number(n) > 0 ? 'pos' : Number(n) < 0 ? 'neg' : '');
@@ -111,7 +110,6 @@ function renderPage(t) {
     recent.totalGames > 0 ? [value, cls] : ['—', 'none'];
 
   const [roi30, roi30cls]   = recentCell(signed(recent.roi), sign(recent.roi));
-  const [win30, win30cls]   = recentCell(pct(recent.winRate), '');
   const [odds30, odds30cls] = recentCell(odds(recent.avgOdds), '');
   const [n30, n30cls]       = recentCell(String(recent.totalGames), '');
 
@@ -130,7 +128,6 @@ function renderPage(t) {
             </thead>
             <tbody>
 ${row('ROI', signed(all.roi), sign(all.roi), roi30, roi30cls)}
-${row('Win rate', pct(all.winRate), '', win30, win30cls)}
 ${row('Average odds', odds(all.avgOdds), '', odds30, odds30cls)}
 ${row('Settled tips', String(all.totalGames), '', n30, n30cls)}
             </tbody>
@@ -344,7 +341,7 @@ function renderNotFound() {
         ? '<span class="headline-value ' + (all.roi > 0 ? 'pos' : all.roi < 0 ? 'neg' : '') + '">' +
           (all.roi > 0 ? '+' : '') + all.roi.toFixed(1) + '%</span>' +
           '<span class="headline-label">return on investment across <b>' + all.totalGames +
-          '</b> settled tips, at a <b>' + all.winRate.toFixed(1) + '%</b> win rate.</span>'
+          '</b> settled tips.</span>'
         : '<span class="headline-value">No settled tips yet</span>' +
           '<span class="headline-label">' + name + ' has joined Insidr but has no settled tips so far.</span>';
 

@@ -33,7 +33,6 @@
   /* Kept identical to the generator's helpers: the same figure must not render
      one way at build time and another way after the refresh. */
 
-  function pct(n)    { return Number(n).toFixed(1) + '%'; }
   function signed(n) { return (Number(n) > 0 ? '+' : '') + Number(n).toFixed(1) + '%'; }
   function odds(n)   { return Number(n).toFixed(2); }
   function sign(n)   { return Number(n) > 0 ? 'pos' : Number(n) < 0 ? 'neg' : ''; }
@@ -82,7 +81,6 @@
         setField('roi-hero', signed(all.roi), sign(all.roi));
 
         setField('roi-all', signed(all.roi), sign(all.roi));
-        setField('win-rate-all', pct(all.winRate));
         setField('average-odds-all', odds(all.avgOdds));
         setField('settled-tips-all', String(all.totalGames));
 
@@ -90,12 +88,10 @@
         // data, and printing 0.0% would read as a month of losing.
         if (recent.totalGames > 0) {
           setField('roi-30', signed(recent.roi), sign(recent.roi));
-          setField('win-rate-30', pct(recent.winRate));
           setField('average-odds-30', odds(recent.avgOdds));
           setField('settled-tips-30', String(recent.totalGames));
         } else {
           setField('roi-30', '—', 'none');
-          setField('win-rate-30', '—', 'none');
           setField('average-odds-30', '—', 'none');
           setField('settled-tips-30', '—', 'none');
         }
