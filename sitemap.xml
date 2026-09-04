@@ -37,6 +37,12 @@
     <priority>0.7</priority>
   </url>
   <url>
+    <loc>https://insidr.tips/t/Osakis/</loc>
+    <lastmod>2026-09-04</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
     <loc>https://insidr.tips/t/PGO/</loc>
     <lastmod>2026-09-04</lastmod>
     <changefreq>daily</changefreq>
