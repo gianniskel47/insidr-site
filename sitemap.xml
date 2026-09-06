@@ -55,6 +55,12 @@
     <priority>0.7</priority>
   </url>
   <url>
+    <loc>https://insidr.tips/t/testTipster/</loc>
+    <lastmod>2026-09-06</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
     <loc>https://insidr.tips/t/TipPG/</loc>
     <lastmod>2026-09-06</lastmod>
     <changefreq>daily</changefreq>
