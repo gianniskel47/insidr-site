@@ -110,7 +110,13 @@
   .nav-links a.link { color: var(--c-muted); font-size: .95rem; font-weight: 550; transition: color .15s ease; }
   .nav-links a.link:hover { color: #fff; }
   .nav-actions { display: flex; align-items: center; gap: 12px; margin-left: 8px; }
-  @media (max-width: 820px) { .nav-links { display: none; } }
+  .nav-toggle { display: none; align-items: center; justify-content: center; width: 38px; height: 38px; border-radius: 10px; background: rgba(255,255,255,.06); border: 1px solid var(--c-line-2); color: #fff; cursor: pointer; padding: 0; }
+  .nav-mobile { display: none; flex-direction: column; padding: 6px 24px 16px; border-top: 1px solid var(--c-line); }
+  .nav-mobile a { padding: 13px 0; color: var(--c-muted); font-weight: 600; font-size: .98rem; border-bottom: 1px solid var(--c-line); }
+  .nav-mobile a:last-child { border-bottom: none; }
+  .nav-mobile.open { display: flex; }
+  .nav-mobile a.nav-mobile-cta { color: var(--accent); font-weight: 700; }
+  @media (max-width: 820px) { .nav-links { display: none; } .nav-toggle { display: inline-flex; } }
 
   /* ---------- Hero: full-bleed photo, dark chrome bookend ---------- */
   .hero {
@@ -129,6 +135,26 @@
   }
   @media (max-width: 940px) {
     .hero::before { background: linear-gradient(180deg, rgba(6,10,20,.55) 0%, rgba(6,10,20,.4) 32%, rgba(6,10,20,.97) 78%, rgba(6,10,20,.99) 100%); }
+  }
+  @media (max-width: 700px) {
+    /* On a tall phone the section is far taller than it is wide (headline + CTAs
+       + the whole stats card stacked), so "cover" across the entire section was
+       cropping down to a ~30%-wide sliver of the photo: the "too zoomed" look.
+       Cap the photo to a shorter band behind just the headline instead, like a
+       mobile hero banner, and let the stats card sit on the flat chrome colour
+       underneath it, same as the rest of the page. */
+    .hero { background: var(--chrome); }
+    .hero::before {
+      top: 0; right: 0; left: 0; bottom: auto;
+      height: clamp(360px, 108vw, 480px);
+      /* Kept dark enough everywhere the headline/lede can land, not just where the
+         photo happens to be dark: the lede uses a muted grey (--c-muted) that
+         fails contrast against a bright patch of photo (floodlights, sky), so the
+         overlay can't dip low the way the desktop one does. */
+      background:
+        linear-gradient(180deg, rgba(6,10,20,.62) 0%, rgba(6,10,20,.58) 50%, rgba(6,10,20,.97) 100%),
+        url("https://images.unsplash.com/photo-1781152791873-ced9456b14ac?auto=format&fit=crop&w=1100&q=72") center 30% / cover no-repeat;
+    }
   }
   .hero-grid { position: relative; z-index: 1; display: grid; grid-template-columns: 1.05fr .95fr; gap: clamp(32px, 5vw, 64px); align-items: center; }
   @media (max-width: 940px) { .hero-grid { grid-template-columns: 1fr; gap: 40px; } }
@@ -204,6 +230,25 @@
   @media (max-width: 860px) {
     #how::before { background: linear-gradient(180deg, rgba(6,10,20,.99) 0%, rgba(6,10,20,.86) 16%, rgba(6,10,20,.72) 40%, rgba(6,10,20,.9) 75%, rgba(6,10,20,.98) 100%); }
   }
+  @media (max-width: 700px) {
+    /* Same reasoning as the hero: two stacked path cards make this section much
+       taller than it is wide, so covering the whole thing zoomed the photo down
+       to a thin vertical strip. Cap it to a band behind the heading instead. */
+    #how { background: var(--chrome); padding-top: 30px; }
+    #how::before {
+      top: 0; right: 0; left: 0; bottom: auto;
+      height: clamp(300px, 86vw, 420px);
+      /* The heading sits right at the top of this band, so that's where the
+         overlay must be darkest and most reliable, never a "light window" that
+         happens to line up with something bright in the photo (a lit TV screen,
+         here). --ink-muted on the paragraph fails contrast fast against a light
+         patch, so this stays solidly dark through the whole text zone and only
+         eases up near the very bottom, below where any text sits. */
+      background:
+        linear-gradient(180deg, rgba(6,10,20,.8) 0%, rgba(6,10,20,.68) 55%, rgba(6,10,20,.97) 100%),
+        url("bg_pic2-mobile.jpg") center 30% / cover no-repeat;
+    }
+  }
   #how > .wrap { position: relative; z-index: 1; }
 
   /* ---------- How it works: two paths, deliberately not matching cards ---------- */
@@ -255,6 +300,39 @@
   .ft-bottom { display: flex; flex-wrap: wrap; gap: 12px 24px; justify-content: space-between; align-items: center; margin-top: 36px; padding-top: 20px; border-top: 1px solid var(--c-line); color: var(--c-faint); font-size: .84rem; }
   .age { font-family: var(--font-mono); font-weight: 700; border: 1px solid var(--c-line-2); border-radius: 6px; padding: 2px 7px; font-size: .74rem; color: var(--c-muted); }
 
+  /* ---------- Phones: layout changes, not just a squeezed desktop page ---------- */
+  @media (max-width: 600px) {
+    .wrap { padding: 0 18px; }
+    /* Logo + "Open app" + hamburger don't all fit on a narrow phone: shrink the
+       header logo and move the CTA into the dropdown instead of squeezing it. */
+    .nav-inner .logo-mark { height: 38px; }
+    .nav-actions .btn-primary { display: none; }
+    .hero { padding: 36px 0 32px; }
+    .hero h1 { font-size: clamp(1.9rem, 8.6vw, 2.5rem); }
+    .lede { max-width: 34ch; margin: 18px 0 26px; }
+    .hero-cta { flex-direction: column; align-items: stretch; gap: 12px; }
+    .hero-cta .btn { width: 100%; justify-content: center; }
+    .hero-note { margin-top: 18px; }
+
+    .perf { padding: 18px; border-radius: 16px; }
+    .perf-stats { gap: 8px; margin: 16px 0 12px; }
+    .stat { padding: 10px 11px; }
+    .stat .k { font-size: .6rem; }
+    .stat .v { font-size: 1.1rem; }
+    canvas.spark { height: 66px; }
+    .picks { gap: 7px; }
+    .pick { font-size: .82rem; }
+
+    section { padding: 40px 0; scroll-margin-top: 62px; }
+    .sec-head { margin-bottom: 26px; }
+    .sec-head h2 { font-size: clamp(1.5rem, 7vw, 1.9rem); }
+    .path { padding: 22px; border-radius: 18px; }
+    .path-list { gap: 15px; }
+
+    .ft-grid { gap: 26px 40px; }
+    .ft-bottom { flex-direction: column; align-items: flex-start; gap: 10px; }
+  }
+
   .reveal { opacity: 0; transform: translateY(18px); transition: opacity .6s ease, transform .6s ease; }
   .reveal.in { opacity: 1; transform: none; }
   @media (prefers-reduced-motion: reduce) { .reveal { opacity: 1; transform: none; transition: none; } }
@@ -273,8 +351,17 @@
     </nav>
     <div class="nav-actions">
       <a class="btn btn-primary" href="https://www.insidr.tips">Open app</a>
+      <button class="nav-toggle" id="navToggle" aria-label="Open menu" aria-expanded="false" aria-controls="navMobile">
+        <svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M4 7h16M4 12h16M4 17h16"/></svg>
+      </button>
     </div>
   </div>
+  <nav class="nav-mobile" id="navMobile" aria-label="Mobile">
+    <a class="link nav-mobile-cta" href="https://www.insidr.tips">Open the app</a>
+    <a class="link" href="#how">How it works</a>
+    <a class="link" href="#tipsters">For tipsters</a>
+    <a class="link" href="#faq">FAQ</a>
+  </nav>
 </header>
 
 <main id="top">
@@ -500,6 +587,21 @@
       canvas.addEventListener('touchmove', function (e) { showTip(pointFromEvent(e)); }, { passive: true });
       canvas.addEventListener('touchend', hideTip);
       var rt; window.addEventListener('resize', function () { clearTimeout(rt); rt = setTimeout(function () { drawSpark(hoverIdx); }, 120); });
+    }
+
+    var navToggle = document.getElementById('navToggle');
+    var navMobile = document.getElementById('navMobile');
+    if (navToggle && navMobile) {
+      navToggle.addEventListener('click', function () {
+        var open = navMobile.classList.toggle('open');
+        navToggle.setAttribute('aria-expanded', open ? 'true' : 'false');
+      });
+      navMobile.querySelectorAll('a').forEach(function (a) {
+        a.addEventListener('click', function () {
+          navMobile.classList.remove('open');
+          navToggle.setAttribute('aria-expanded', 'false');
+        });
+      });
     }
 
     var reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
