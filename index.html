@@ -86,11 +86,10 @@
   .eyebrow { font-family: var(--font-mono); font-size: .72rem; text-transform: uppercase; letter-spacing: .2em; color: var(--accent); font-weight: 600; margin: 0 0 14px; }
   .mono { font-family: var(--font-mono); font-variant-numeric: tabular-nums; }
 
-  /* Text wordmark, replacing a bulky embedded logo image with real type, in the
-     product's own navy/teal identity (not the old asset's off-brand green). */
-  .wordmark { font-weight: 800; letter-spacing: -.02em; color: var(--c-ink); font-size: 1.28rem; }
-  .wordmark .i { color: var(--accent); }
-  .ft-brand .wordmark { font-size: 1.5rem; }
+  /* Real logo file, served as a normal static image (proper HTTP caching) instead of
+     the old 73KB base64 blob inline in the CSS. */
+  .logo-mark { height: 52px; width: auto; aspect-ratio: 754 / 164; display: block; }
+  .ft-brand .logo-mark { height: 60px; }
 
   /* ---------- Buttons ---------- */
   .btn { display: inline-flex; align-items: center; gap: 8px; font-family: var(--font-sans); font-weight: 650; font-size: .98rem; padding: 12px 20px; border-radius: 12px; border: 1px solid transparent; cursor: pointer; transition: transform .15s ease, box-shadow .2s ease, background .2s ease, border-color .2s ease, color .2s ease; line-height: 1; }
@@ -123,10 +122,13 @@
     content: ""; position: absolute; inset: 0; z-index: 0; pointer-events: none;
     background:
       linear-gradient(90deg, rgba(6,10,20,.95) 0%, rgba(6,10,20,.82) 40%, rgba(6,10,20,.38) 68%, rgba(6,10,20,.6) 100%),
-      linear-gradient(180deg, rgba(6,10,20,.2) 0%, rgba(6,10,20,.1) 40%, rgba(6,10,20,.85) 100%);
+      /* Fades to fully opaque at the very bottom, on purpose: the next section's own
+         photo starts from that same solid dark tone, so the seam between the two
+         background photos reads as one deliberate dark passage, not a hard cut. */
+      linear-gradient(180deg, rgba(6,10,20,.2) 0%, rgba(6,10,20,.1) 40%, rgba(6,10,20,.99) 100%);
   }
   @media (max-width: 940px) {
-    .hero::before { background: linear-gradient(180deg, rgba(6,10,20,.55) 0%, rgba(6,10,20,.4) 32%, rgba(6,10,20,.93) 78%, rgba(6,10,20,.98) 100%); }
+    .hero::before { background: linear-gradient(180deg, rgba(6,10,20,.55) 0%, rgba(6,10,20,.4) 32%, rgba(6,10,20,.97) 78%, rgba(6,10,20,.99) 100%); }
   }
   .hero-grid { position: relative; z-index: 1; display: grid; grid-template-columns: 1.05fr .95fr; gap: clamp(32px, 5vw, 64px); align-items: center; }
   @media (max-width: 940px) { .hero-grid { grid-template-columns: 1fr; gap: 40px; } }
@@ -178,6 +180,31 @@
   .sec-head h2 { font-size: clamp(1.7rem, 3.4vw, 2.5rem); font-weight: 800; letter-spacing: -.025em; line-height: 1.08; }
   .sec-head p { color: var(--ink-muted); margin: 14px 0 0; font-size: 1.06rem; }
   .divider { border: 0; border-top: 1px solid var(--border); margin: 0; }
+
+  /* ---------- How it works: second full-bleed photo, echoing the hero ----------
+     The overlay starts fully dark at the very top (the same tone the hero's own
+     bottom fades to) so the two photos hand off through one continuous dark
+     passage instead of a visible seam, eases up to let the photo breathe around
+     the heading, then darkens again toward the foot so it settles into the FAQ
+     section's flat background rather than cutting off mid-tone. */
+  #how {
+    position: relative; overflow: hidden; isolation: isolate;
+    background: #0B1322 url("bg_pic2.jpg") center 32% / cover no-repeat;
+  }
+  #how::before {
+    content: ""; position: absolute; inset: 0; z-index: 0; pointer-events: none;
+    background: linear-gradient(180deg,
+      rgba(6,10,20,.99) 0%,
+      rgba(6,10,20,.8) 14%,
+      rgba(6,10,20,.5) 32%,
+      rgba(6,10,20,.55) 62%,
+      rgba(6,10,20,.88) 88%,
+      rgba(6,10,20,.98) 100%);
+  }
+  @media (max-width: 860px) {
+    #how::before { background: linear-gradient(180deg, rgba(6,10,20,.99) 0%, rgba(6,10,20,.86) 16%, rgba(6,10,20,.72) 40%, rgba(6,10,20,.9) 75%, rgba(6,10,20,.98) 100%); }
+  }
+  #how > .wrap { position: relative; z-index: 1; }
 
   /* ---------- How it works: two paths, deliberately not matching cards ---------- */
   .paths { display: grid; grid-template-columns: 1fr 1fr; gap: 22px; }
@@ -238,7 +265,7 @@
 
 <header class="nav">
   <div class="wrap nav-inner">
-    <a class="brand" href="#top" aria-label="Insidr home"><span class="wordmark">Ins<span class="i">i</span>dr</span></a>
+    <a class="brand" href="#top" aria-label="Insidr home"><img class="logo-mark" src="wordmark.png" alt="Insidr"></a>
     <nav class="nav-links" aria-label="Primary">
       <a class="link" href="#how">How it works</a>
       <a class="link" href="#tipsters">For tipsters</a>
@@ -375,7 +402,7 @@
   <div class="wrap">
     <div class="ft-grid">
       <div class="ft-brand">
-        <span class="wordmark" role="img" aria-label="Insidr">Ins<span class="i">i</span>dr</span>
+        <img class="logo-mark" src="wordmark.png" alt="Insidr">
         <p>Follow sports tipsters who prove they win. Verified records, real-time tips.</p>
       </div>
       <div class="ft-col">
