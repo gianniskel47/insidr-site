@@ -3,24 +3,23 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
-<title>Follow winning sports tipsters &amp; track their picks on Insidr</title>
-<meta name="description" content="Insidr is a sports tipster platform. Every pick is timestamped, priced and settled automatically. Check a tipster's real record before you follow them, then subscribe to the ones who actually win.">
+<title>Insidr — Follow winning sports tipsters &amp; track their picks</title>
+<meta name="description" content="Insidr is a sports tipster platform. Follow expert tipsters with verified track records — ROI, average odds, every settled pick — and subscribe to get their premium tips.">
 <link rel="canonical" href="https://insidr.tips/">
 <meta name="robots" content="index, follow">
 <meta name="theme-color" content="#0B1322">
 <meta property="og:type" content="website">
 <meta property="og:site_name" content="Insidr">
-<meta property="og:title" content="Follow winning sports tipsters on Insidr">
+<meta property="og:title" content="Insidr — Follow winning sports tipsters">
 <meta property="og:description" content="Verified tipster records, premium picks, real-time tips. Follow sports tipsters who prove they win.">
 <meta property="og:url" content="https://insidr.tips/">
 <meta property="og:image" content="https://insidr.tips/logo.png">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Follow winning sports tipsters on Insidr">
+<meta name="twitter:title" content="Insidr — Follow winning sports tipsters">
 <meta name="twitter:description" content="Verified tipster records, premium picks, real-time tips. Follow sports tipsters who prove they win.">
 <meta name="twitter:image" content="https://insidr.tips/logo.png">
 <link rel="icon" type="image/png" href="/favicon.png">
 <link rel="apple-touch-icon" href="/logo.png">
-<link rel="preconnect" href="https://images.unsplash.com">
 <script type="application/ld+json">
 {"@context":"https://schema.org","@type":"Organization","name":"Insidr","url":"https://insidr.tips","logo":"https://insidr.tips/logo.png","description":"A sports tipster platform where bettors follow tipsters with verified track records and subscribe to their premium picks.","contactPoint":{"@type":"ContactPoint","email":"support@insidr.tips","contactType":"customer support"}}
 </script>
@@ -31,44 +30,78 @@
 {"@context":"https://schema.org","@type":"FAQPage","mainEntity":[
 {"@type":"Question","name":"What is Insidr?","acceptedAnswer":{"@type":"Answer","text":"Insidr is a sports tipster platform. Bettors find expert tipsters, check their verified records, and subscribe to get their premium picks. Tipsters build a following and earn from subscriptions."}},
 {"@type":"Question","name":"Is Insidr a betting site? Can I bet real money here?","acceptedAnswer":{"@type":"Answer","text":"No. Insidr is not a bookmaker and you never wager real money on the platform. Tips are opinions, tracked in virtual units for a fair, comparable record. You place any real bets with your own bookmaker, wherever you choose."}},
-{"@type":"Question","name":"How do I know a tipster's stats are real?","acceptedAnswer":{"@type":"Answer","text":"Every ROI and profit figure is computed automatically from settled picks, so a tipster can't inflate a record or hide losing bets. Combo picks that mix several markets (bet builders) need a betslip screenshot checked against the declared price, so even a manually-entered price can't be faked."}},
+{"@type":"Question","name":"How do I know a tipster stats are real?","acceptedAnswer":{"@type":"Answer","text":"Every ROI and profit figure is computed automatically from settled picks. A tipster cannot inflate a record or hide losing bets."}},
 {"@type":"Question","name":"How much does it cost?","acceptedAnswer":{"@type":"Answer","text":"Browsing tipsters and their public records is free. Each tipster sets their own monthly subscription price to unlock premium picks, and you can cancel any time."}},
-{"@type":"Question","name":"What if a tipster I subscribed to goes quiet?","acceptedAnswer":{"@type":"Answer","text":"If a tipster posts no qualifying picks during your billing cycle, you are eligible for a full refund of that period. The app surfaces the option automatically when it applies."}}
+{"@type":"Question","name":"Can I become a tipster and earn?","acceptedAnswer":{"@type":"Answer","text":"Yes. Once you have built a qualifying record you can turn on payouts through Stripe and earn from monthly subscribers, plus direct tips from supporters. Insidr takes a small platform fee; the rest is yours."}},
+{"@type":"Question","name":"What if a tipster I subscribed to goes quiet?","acceptedAnswer":{"@type":"Answer","text":"If a tipster posts no picks during your billing cycle, you are eligible for a full refund of that period. The app surfaces the option automatically when it applies."}}
 ]}
 </script>
 <style>
   :root {
-    /* Dark theme, the only theme. No toggle, no light variant. */
-    --bg:        #0A1120;
-    --bg-2:      #0D1526;
-    --surface:   #131D30;
-    --surface-2: #182541;
-    --chrome:    #0B1322;   /* dark chrome, nav and footer and hero and bands */
-    --border:    rgba(255,255,255,.08);
-    --border-strong:rgba(255,255,255,.16);
-    --ink:       #F4F7FC;
-    --ink-muted: #9EABC2;
-    --ink-faint: #66738C;
-    --accent:    #2FD8D2;
-    --accent-ink:#052228;
-    --accent-soft:#122E36;
-    --gold:      #F0A500;
+    /* Light theme (default tokens) */
+    --bg:        #F2F3F7;
+    --bg-2:      #FFFFFF;
+    --surface:   #FFFFFF;
+    --surface-2: #F5F6FA;
+    --chrome:    #0B1322;   /* dark chrome — nav / footer / bands, both themes */
+    --border:    #E2E5EC;
+    --border-strong:#D2D7E0;
+    --ink:       #131722;
+    --ink-muted: #55607A;
+    --ink-faint: #7B8598;
+    --accent:    #0C8C88;   /* teal, dark enough for white text on light */
+    --accent-ink:#FFFFFF;
+    --accent-soft:#E4F4F3;
+    --gold:      #9A6B00;
     --gold-fill: #F0A500;
-    --gold-soft: #2A2210;
-    --win:       #3FCF74;
-    --loss:      #F0645F;
-    --brand:     #93A4FF;
-    --shadow:    0 1px 2px rgba(0,0,0,.3), 0 12px 40px rgba(0,0,0,.35);
-    --shadow-lg: 0 40px 90px rgba(0,0,0,.55);
+    --gold-soft: #FBEFD4;
+    --win:       #2E7D32;
+    --loss:      #C62828;
+    --brand:     #1A2980;
+    --shadow:    0 1px 2px rgba(16,22,40,.04), 0 8px 30px rgba(16,22,40,.06);
+    --shadow-lg: 0 30px 70px rgba(10,17,32,.14);
     --maxw: 1140px;
     --font-sans: system-ui, -apple-system, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
     --font-mono: ui-monospace, "SF Mono", "Cascadia Code", "JetBrains Mono", Menlo, Consolas, monospace;
-    /* Chrome text colours, same surfaces as the rest of the page now that dark is the only theme */
+    /* Chrome (dark bookend) fixed colours — identical in both themes */
     --c-ink:   #F4F7FC;
     --c-muted: #AEB8CC;
     --c-faint: #6E7A92;
     --c-line:  rgba(255,255,255,.09);
     --c-line-2:rgba(255,255,255,.16);
+  }
+
+  @media (prefers-color-scheme: dark) {
+    :root {
+      --bg:#0A1120; --bg-2:#0D1526; --surface:#131D30; --surface-2:#182541;
+      --border:rgba(255,255,255,.08); --border-strong:rgba(255,255,255,.16);
+      --ink:#F4F7FC; --ink-muted:#9EABC2; --ink-faint:#66738C;
+      --accent:#2FD8D2; --accent-ink:#052228; --accent-soft:#122E36;
+      --gold:#F0A500; --gold-fill:#F0A500; --gold-soft:#2A2210;
+      --win:#3FCF74; --loss:#F0645F; --brand:#93A4FF;
+      --shadow:0 1px 2px rgba(0,0,0,.3), 0 12px 40px rgba(0,0,0,.35);
+      --shadow-lg:0 40px 90px rgba(0,0,0,.55);
+    }
+  }
+  :root[data-theme="light"] {
+    --bg:#F2F3F7; --bg-2:#FFFFFF; --surface:#FFFFFF; --surface-2:#F5F6FA;
+    --border:#E2E5EC; --border-strong:#D2D7E0;
+    --ink:#131722; --ink-muted:#55607A; --ink-faint:#7B8598;
+    --accent:#0C8C88; --accent-ink:#FFFFFF; --accent-soft:#E4F4F3;
+    --gold:#9A6B00; --gold-fill:#F0A500; --gold-soft:#FBEFD4;
+    --win:#2E7D32; --loss:#C62828; --brand:#1A2980;
+    --shadow:0 1px 2px rgba(16,22,40,.04), 0 8px 30px rgba(16,22,40,.06);
+    --shadow-lg:0 30px 70px rgba(10,17,32,.14);
+  }
+  :root[data-theme="dark"] {
+    --bg:#0A1120; --bg-2:#0D1526; --surface:#131D30; --surface-2:#182541;
+    --border:rgba(255,255,255,.08); --border-strong:rgba(255,255,255,.16);
+    --ink:#F4F7FC; --ink-muted:#9EABC2; --ink-faint:#66738C;
+    --accent:#2FD8D2; --accent-ink:#052228; --accent-soft:#122E36;
+    --gold:#F0A500; --gold-fill:#F0A500; --gold-soft:#2A2210;
+    --win:#3FCF74; --loss:#F0645F; --brand:#93A4FF;
+    --shadow:0 1px 2px rgba(0,0,0,.3), 0 12px 40px rgba(0,0,0,.35);
+    --shadow-lg:0 40px 90px rgba(0,0,0,.55);
   }
 
   * { box-sizing: border-box; }
@@ -82,28 +115,23 @@
   .wrap { width: 100%; max-width: var(--maxw); margin: 0 auto; padding: 0 24px; }
   a { color: inherit; text-decoration: none; }
   h1, h2, h3 { text-wrap: balance; margin: 0; }
-  p { text-wrap: pretty; }
   .eyebrow { font-family: var(--font-mono); font-size: .72rem; text-transform: uppercase; letter-spacing: .2em; color: var(--accent); font-weight: 600; margin: 0 0 14px; }
   .mono { font-family: var(--font-mono); font-variant-numeric: tabular-nums; }
 
-  /* Text wordmark, replacing a bulky embedded logo image with real type, in the
-     product's own navy/teal identity (not the old asset's off-brand green). */
-  .wordmark { font-weight: 800; letter-spacing: -.02em; color: var(--c-ink); font-size: 1.28rem; }
-  .wordmark .i { color: var(--accent); }
-  .ft-brand .wordmark { font-size: 1.5rem; }
+  .logo-mark { height: 46px; aspect-ratio: 1080 / 438; background: var(--logo) center / contain no-repeat; display: block; }
 
   /* ---------- Buttons ---------- */
   .btn { display: inline-flex; align-items: center; gap: 8px; font-family: var(--font-sans); font-weight: 650; font-size: .98rem; padding: 12px 20px; border-radius: 12px; border: 1px solid transparent; cursor: pointer; transition: transform .15s ease, box-shadow .2s ease, background .2s ease, border-color .2s ease, color .2s ease; line-height: 1; }
   .btn:focus-visible { outline: 3px solid var(--accent); outline-offset: 2px; }
   .btn-primary { background: var(--accent); color: var(--accent-ink); box-shadow: 0 6px 20px -6px color-mix(in srgb, var(--accent) 70%, transparent); }
   .btn-primary:hover { transform: translateY(-2px); box-shadow: 0 12px 28px -8px color-mix(in srgb, var(--accent) 70%, transparent); }
-  .btn-ghost { background: rgba(255,255,255,.06); color: #fff; border-color: var(--c-line-2); }
+  .btn-ghost { background: transparent; color: var(--ink); border-color: var(--border-strong); }
   .btn-ghost:hover { border-color: var(--accent); color: var(--accent); transform: translateY(-2px); }
   .btn-gold { background: var(--gold-fill); color: #241a00; }
   .btn-gold:hover { transform: translateY(-2px); box-shadow: 0 12px 28px -8px color-mix(in srgb, var(--gold-fill) 65%, transparent); }
   .btn-lg { padding: 15px 26px; font-size: 1.02rem; }
 
-  /* ---------- Nav ---------- */
+  /* ---------- Nav (dark chrome, both themes) ---------- */
   header.nav { position: sticky; top: 0; z-index: 50; background: color-mix(in srgb, var(--chrome) 86%, transparent); backdrop-filter: saturate(140%) blur(12px); -webkit-backdrop-filter: saturate(140%) blur(12px); border-bottom: 1px solid var(--c-line); }
   .nav-inner { display: flex; align-items: center; gap: 20px; height: 66px; }
   .brand { display: inline-flex; align-items: center; }
@@ -111,33 +139,24 @@
   .nav-links a.link { color: var(--c-muted); font-size: .95rem; font-weight: 550; transition: color .15s ease; }
   .nav-links a.link:hover { color: #fff; }
   .nav-actions { display: flex; align-items: center; gap: 12px; margin-left: 8px; }
+  .theme-toggle { width: 38px; height: 38px; border-radius: 10px; border: 1px solid var(--c-line-2); background: rgba(255,255,255,.04); color: var(--c-muted); cursor: pointer; display: grid; place-items: center; transition: color .15s, border-color .15s; }
+  .theme-toggle:hover { color: var(--accent); border-color: var(--accent); }
+  .theme-toggle:focus-visible { outline: 3px solid var(--accent); outline-offset: 2px; }
   @media (max-width: 820px) { .nav-links { display: none; } }
 
-  /* ---------- Hero: full-bleed photo, dark chrome bookend ---------- */
-  .hero {
-    position: relative; overflow: hidden; isolation: isolate; color: var(--c-ink);
-    padding: clamp(64px, 11vw, 116px) 0 clamp(56px, 9vw, 100px);
-    background: #0B1322 url("https://images.unsplash.com/photo-1781152791873-ced9456b14ac?auto=format&fit=crop&w=2400&q=80") center 40% / cover no-repeat;
-  }
-  .hero::before {
-    content: ""; position: absolute; inset: 0; z-index: 0; pointer-events: none;
-    background:
-      linear-gradient(90deg, rgba(6,10,20,.95) 0%, rgba(6,10,20,.82) 40%, rgba(6,10,20,.38) 68%, rgba(6,10,20,.6) 100%),
-      linear-gradient(180deg, rgba(6,10,20,.2) 0%, rgba(6,10,20,.1) 40%, rgba(6,10,20,.85) 100%);
-  }
-  @media (max-width: 940px) {
-    .hero::before { background: linear-gradient(180deg, rgba(6,10,20,.55) 0%, rgba(6,10,20,.4) 32%, rgba(6,10,20,.93) 78%, rgba(6,10,20,.98) 100%); }
-  }
+  /* ---------- Hero ---------- */
+  .hero { position: relative; overflow: hidden; padding: clamp(56px, 9vw, 104px) 0 clamp(52px, 8vw, 92px); }
+  .hero::before { content: ""; position: absolute; inset: 0; z-index: 0; pointer-events: none; background: radial-gradient(720px 420px at 78% -8%, color-mix(in srgb, var(--accent) 20%, transparent), transparent 62%), radial-gradient(680px 460px at 8% 8%, color-mix(in srgb, var(--brand) 16%, transparent), transparent 60%); }
   .hero-grid { position: relative; z-index: 1; display: grid; grid-template-columns: 1.05fr .95fr; gap: clamp(32px, 5vw, 64px); align-items: center; }
-  @media (max-width: 940px) { .hero-grid { grid-template-columns: 1fr; gap: 40px; } }
-  .hero h1 { font-size: clamp(2.3rem, 5.4vw, 4rem); font-weight: 800; letter-spacing: -.032em; line-height: 1.03; color: #fff; }
+  @media (max-width: 940px) { .hero-grid { grid-template-columns: 1fr; gap: 44px; } }
+  .hero h1 { font-size: clamp(2.4rem, 5.6vw, 4.15rem); font-weight: 800; letter-spacing: -.032em; line-height: 1.02; }
   .hero h1 .u { color: var(--accent); }
-  .lede { font-size: clamp(1.05rem, 1.8vw, 1.22rem); color: var(--c-muted); margin: 22px 0 30px; max-width: 36ch; line-height: 1.6; }
+  .lede { font-size: clamp(1.06rem, 1.8vw, 1.24rem); color: var(--ink-muted); margin: 22px 0 30px; max-width: 33ch; }
   .hero-cta { display: flex; flex-wrap: wrap; gap: 14px; align-items: center; }
-  .hero-note { margin-top: 22px; font-size: .86rem; color: var(--c-faint); display: flex; align-items: center; gap: 8px; }
+  .hero-note { margin-top: 20px; font-size: .86rem; color: var(--ink-faint); display: flex; align-items: center; gap: 8px; }
   .hero-note .dot { width: 7px; height: 7px; border-radius: 50%; background: var(--win); box-shadow: 0 0 0 4px color-mix(in srgb, var(--win) 22%, transparent); }
 
-  /* ---------- Performance card (floats over the hero photo) ---------- */
+  /* ---------- Performance card ---------- */
   .perf { background: var(--surface); border: 1px solid var(--border); border-radius: 20px; padding: 22px; box-shadow: var(--shadow-lg); position: relative; }
   .perf-top { display: flex; align-items: center; gap: 13px; }
   .avatar { width: 46px; height: 46px; border-radius: 13px; flex: none; background: linear-gradient(135deg, var(--brand), var(--accent)); color: #fff; font-weight: 800; display: grid; place-items: center; font-size: 1.02rem; }
@@ -167,40 +186,45 @@
   .pill { font-family: var(--font-mono); font-size: .64rem; font-weight: 700; text-transform: uppercase; letter-spacing: .06em; padding: 3px 8px; border-radius: 7px; flex: none; }
   .pill.won { background: color-mix(in srgb, var(--win) 16%, transparent); color: var(--win); }
   .pill.lost { background: color-mix(in srgb, var(--loss) 16%, transparent); color: var(--loss); }
+  .pill.void { background: color-mix(in srgb, var(--ink-faint) 18%, transparent); color: var(--ink-faint); }
   .pick .amt { font-family: var(--font-mono); font-variant-numeric: tabular-nums; font-weight: 700; font-size: .86rem; flex: none; width: 74px; text-align: right; }
-  .amt.pos { color: var(--win); } .amt.neg { color: var(--loss); }
+  .amt.pos { color: var(--win); } .amt.neg { color: var(--loss); } .amt.zero { color: var(--ink-faint); }
   .perf-foot { margin-top: 15px; padding-top: 13px; border-top: 1px solid var(--border); font-size: .76rem; color: var(--ink-faint); display: flex; align-items: center; gap: 7px; }
   .perf-foot svg { flex: none; color: var(--accent); }
 
   /* ---------- Sections ---------- */
-  section { padding: clamp(52px, 7vw, 88px) 0; scroll-margin-top: 82px; }
-  .sec-head { max-width: 620px; margin-bottom: clamp(30px, 4vw, 46px); }
-  .sec-head h2 { font-size: clamp(1.7rem, 3.4vw, 2.5rem); font-weight: 800; letter-spacing: -.025em; line-height: 1.08; }
-  .sec-head p { color: var(--ink-muted); margin: 14px 0 0; font-size: 1.06rem; }
+  section { padding: clamp(56px, 8vw, 96px) 0; scroll-margin-top: 82px; }
+  .sec-head { max-width: 640px; margin-bottom: clamp(32px, 4vw, 52px); }
+  .sec-head h2 { font-size: clamp(1.75rem, 3.6vw, 2.6rem); font-weight: 800; letter-spacing: -.025em; line-height: 1.08; }
+  .sec-head p { color: var(--ink-muted); margin: 16px 0 0; font-size: 1.08rem; }
   .divider { border: 0; border-top: 1px solid var(--border); margin: 0; }
 
-  /* ---------- How it works: two paths, deliberately not matching cards ---------- */
-  .paths { display: grid; grid-template-columns: 1fr 1fr; gap: 22px; }
-  @media (max-width: 860px) { .paths { grid-template-columns: 1fr; } }
-  .path { border-radius: 22px; padding: clamp(26px, 3vw, 36px); position: relative; overflow: hidden; }
-  .path-bettor { background: var(--surface); border: 1px solid var(--border); box-shadow: var(--shadow); }
-  .path-tipster { background: var(--chrome); color: var(--c-ink); }
-  .path-tipster::after { content:""; position:absolute; inset:0; background: radial-gradient(560px 300px at 90% 115%, color-mix(in srgb, var(--gold-fill) 22%, transparent), transparent 60%); pointer-events:none; }
-  .path > * { position: relative; z-index: 1; }
-  .path-kicker { font-family: var(--font-mono); font-size: .72rem; text-transform: uppercase; letter-spacing: .16em; font-weight: 700; margin-bottom: 10px; }
-  .path-bettor .path-kicker { color: var(--accent); }
-  .path-tipster .path-kicker { color: var(--gold-fill); }
-  .path h3 { font-size: clamp(1.3rem, 2.2vw, 1.6rem); font-weight: 800; letter-spacing: -.02em; margin-bottom: 22px; }
-  .path-tipster h3 { color: #fff; }
-  .path-list { list-style: none; margin: 0 0 26px; padding: 0; display: flex; flex-direction: column; gap: 18px; }
-  .path-list li { display: flex; gap: 14px; align-items: flex-start; }
-  .path-n { flex: none; width: 26px; height: 26px; border-radius: 8px; display: grid; place-items: center; font-family: var(--font-mono); font-weight: 700; font-size: .82rem; margin-top: 1px; }
-  .path-bettor .path-n { background: var(--accent-soft); color: var(--accent); }
-  .path-tipster .path-n { background: rgba(255,255,255,.1); color: var(--gold-fill); }
-  .path-list b { display: block; font-size: 1.02rem; margin-bottom: 2px; }
-  .path-tipster .path-list b { color: #fff; }
-  .path-list span { color: var(--ink-muted); font-size: .95rem; line-height: 1.5; }
-  .path-tipster .path-list span { color: #C4CEDF; }
+  .steps { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; }
+  @media (max-width: 820px) { .steps { grid-template-columns: 1fr; } }
+  .step { background: var(--surface); border: 1px solid var(--border); border-radius: 18px; padding: 26px; box-shadow: var(--shadow); }
+  .step-n { font-family: var(--font-mono); font-size: .78rem; font-weight: 700; color: var(--accent); letter-spacing: .1em; }
+  .step h3 { font-size: 1.24rem; font-weight: 750; margin: 14px 0 8px; letter-spacing: -.01em; }
+  .step p { color: var(--ink-muted); margin: 0; font-size: .98rem; }
+
+  .features { display: grid; grid-template-columns: repeat(3, 1fr); gap: 18px; }
+  @media (max-width: 900px) { .features { grid-template-columns: repeat(2, 1fr); } }
+  @media (max-width: 600px) { .features { grid-template-columns: 1fr; } }
+  .feature { background: var(--surface); border: 1px solid var(--border); border-radius: 16px; padding: 24px; box-shadow: var(--shadow); transition: transform .18s ease, border-color .18s ease; }
+  .feature:hover { transform: translateY(-3px); border-color: var(--border-strong); }
+  .ficon { width: 42px; height: 42px; border-radius: 11px; display: grid; place-items: center; background: var(--accent-soft); color: var(--accent); margin-bottom: 16px; }
+  .feature h3 { font-size: 1.1rem; font-weight: 700; margin: 0 0 7px; letter-spacing: -.01em; }
+  .feature p { color: var(--ink-muted); margin: 0; font-size: .94rem; }
+
+  .band { background: var(--chrome); color: var(--c-ink); border-radius: 26px; padding: clamp(34px, 5vw, 60px); position: relative; overflow: hidden; }
+  .band::after { content:""; position:absolute; inset:0; background: radial-gradient(560px 300px at 88% 120%, color-mix(in srgb, var(--gold-fill) 22%, transparent), transparent 60%); pointer-events:none; }
+  .band-grid { position: relative; z-index: 1; display: grid; grid-template-columns: 1.1fr .9fr; gap: 40px; align-items: center; }
+  @media (max-width: 860px) { .band-grid { grid-template-columns: 1fr; gap: 28px; } }
+  .band .eyebrow { color: var(--gold-fill); }
+  .band h2 { font-size: clamp(1.7rem, 3.4vw, 2.5rem); font-weight: 800; letter-spacing: -.025em; color: #fff; }
+  .band p { color: #C4CEDF; font-size: 1.06rem; margin: 16px 0 26px; }
+  .earn-list { list-style: none; padding: 0; margin: 0; display: flex; flex-direction: column; gap: 14px; }
+  .earn-list li { display: flex; gap: 12px; align-items: flex-start; color: #DAE2EE; font-size: .98rem; }
+  .earn-list .ck { color: var(--gold-fill); flex: none; margin-top: 2px; }
 
   .faq { max-width: 780px; margin: 0 auto; }
   details.qa { border-bottom: 1px solid var(--border); }
@@ -212,20 +236,21 @@
   details.qa p { color: var(--ink-muted); margin: 0 0 18px; font-size: .98rem; max-width: 68ch; }
 
   .cta-final { text-align: center; }
-  .cta-final h2 { font-size: clamp(1.8rem, 3.8vw, 2.8rem); font-weight: 800; letter-spacing: -.03em; }
-  .cta-final p { color: var(--ink-muted); font-size: 1.08rem; margin: 14px auto 28px; max-width: 46ch; }
+  .cta-final h2 { font-size: clamp(1.9rem, 4vw, 3rem); font-weight: 800; letter-spacing: -.03em; }
+  .cta-final p { color: var(--ink-muted); font-size: 1.1rem; margin: 16px auto 30px; max-width: 46ch; }
   .cta-alt { margin-top: 20px; font-size: .96rem; color: var(--ink-faint); }
   .cta-alt a { color: var(--accent); font-weight: 600; border-bottom: 1px solid color-mix(in srgb, var(--accent) 40%, transparent); }
   .cta-alt a:hover { border-bottom-color: var(--accent); }
 
-  footer.ft { border-top: 1px solid var(--c-line); padding: 50px 0 36px; background: var(--chrome); color: var(--c-ink); }
+  footer.ft { border-top: 1px solid var(--c-line); padding: 54px 0 40px; background: var(--chrome); color: var(--c-ink); }
   .ft-grid { display: flex; flex-wrap: wrap; gap: 28px 60px; justify-content: space-between; }
   .ft-brand { max-width: 300px; }
-  .ft-brand p { color: var(--c-muted); font-size: .9rem; margin: 14px 0 0; }
+  .ft-brand .logo-mark { height: 52px; }
+  .ft-brand p { color: var(--c-muted); font-size: .9rem; margin: 16px 0 0; }
   .ft-col h4 { font-family: var(--font-mono); font-size: .68rem; text-transform: uppercase; letter-spacing: .14em; color: var(--c-faint); margin: 0 0 14px; font-weight: 600; }
   .ft-col a { display: block; color: var(--c-muted); font-size: .93rem; margin-bottom: 10px; transition: color .15s; }
   .ft-col a:hover { color: var(--accent); }
-  .ft-bottom { display: flex; flex-wrap: wrap; gap: 12px 24px; justify-content: space-between; align-items: center; margin-top: 36px; padding-top: 20px; border-top: 1px solid var(--c-line); color: var(--c-faint); font-size: .84rem; }
+  .ft-bottom { display: flex; flex-wrap: wrap; gap: 12px 24px; justify-content: space-between; align-items: center; margin-top: 40px; padding-top: 22px; border-top: 1px solid var(--c-line); color: var(--c-faint); font-size: .84rem; }
   .age { font-family: var(--font-mono); font-weight: 700; border: 1px solid var(--c-line-2); border-radius: 6px; padding: 2px 7px; font-size: .74rem; color: var(--c-muted); }
 
   .reveal { opacity: 0; transform: translateY(18px); transition: opacity .6s ease, transform .6s ease; }
@@ -238,13 +263,17 @@
 
 <header class="nav">
   <div class="wrap nav-inner">
-    <a class="brand" href="#top" aria-label="Insidr home"><span class="wordmark">Ins<span class="i">i</span>dr</span></a>
+    <a class="brand" href="#top" aria-label="Insidr home"><span class="logo-mark" role="img" aria-label="Insidr"></span></a>
     <nav class="nav-links" aria-label="Primary">
       <a class="link" href="#how">How it works</a>
+      <a class="link" href="#features">Features</a>
       <a class="link" href="#tipsters">For tipsters</a>
       <a class="link" href="#faq">FAQ</a>
     </nav>
     <div class="nav-actions">
+      <button class="theme-toggle" id="themeToggle" aria-label="Switch colour theme" title="Switch theme">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="4.5"/><path d="M12 2v2M12 20v2M2 12h2M20 12h2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M19.1 4.9l-1.4 1.4M6.3 17.7l-1.4 1.4"/></svg>
+      </button>
       <a class="btn btn-primary" href="https://www.insidr.tips">Open app</a>
     </div>
   </div>
@@ -254,14 +283,14 @@
   <section class="hero">
     <div class="wrap hero-grid">
       <div class="hero-copy">
-        <p class="eyebrow">Sports tips, verified</p>
-        <h1>Stop trusting tipsters on <span class="u">their word.</span></h1>
-        <p class="lede">Insidr tracks every pick automatically, including the odds, the result and the running record, so you can check a tipster before you follow them, not after.</p>
+        <p class="eyebrow">Sports tipster platform</p>
+        <h1>Follow sports tipsters who <span class="u">prove</span> they win.</h1>
+        <p class="lede">Insidr shows every tipster's real, verified record — ROI, average odds, and every settled pick. Subscribe to the ones worth following and get their tips the moment they post.</p>
         <div class="hero-cta">
           <a class="btn btn-primary btn-lg" href="https://www.insidr.tips">Open the app</a>
           <a class="btn btn-ghost btn-lg" href="#how">See how it works</a>
         </div>
-        <p class="hero-note"><span class="dot"></span> Every stat is computed from settled bets. Nothing is cherry-picked.</p>
+        <p class="hero-note"><span class="dot"></span> Every stat is computed from settled bets — no cherry-picking.</p>
       </div>
 
       <div class="perf reveal" aria-label="Example tipster performance card">
@@ -299,45 +328,86 @@
         <div class="picks">
           <div class="pick"><span class="pill won">Won</span><span class="lg">Arsenal &amp; Over 2.5 &nbsp;·&nbsp; @2.10</span><span class="amt pos">+11u</span></div>
           <div class="pick"><span class="pill won">Won</span><span class="lg">Real Madrid to win &nbsp;·&nbsp; @1.72</span><span class="amt pos">+7u</span></div>
-          <div class="pick"><span class="pill lost">Lost</span><span class="lg">BTTS: Inter vs Napoli &nbsp;·&nbsp; @1.90</span><span class="amt neg">−10u</span></div>
+          <div class="pick"><span class="pill lost">Lost</span><span class="lg">BTTS — Inter vs Napoli &nbsp;·&nbsp; @1.90</span><span class="amt neg">−10u</span></div>
+          <div class="pick"><span class="pill void">Void</span><span class="lg">Draw no bet — Ajax &nbsp;·&nbsp; @1.65</span><span class="amt zero">0u</span></div>
         </div>
 
         <div class="perf-foot">
           <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M12 16v-4M12 8h.01"/></svg>
-          Illustrative example. Every record on Insidr is verified from settled bets.
+          Illustrative example — every record on Insidr is verified from settled bets.
         </div>
       </div>
     </div>
   </section>
 
+  <hr class="divider" />
+
   <section id="how">
     <div class="wrap">
       <div class="sec-head reveal">
         <p class="eyebrow">How it works</p>
-        <h2>One verified record. Two ways to use it.</h2>
-        <p>Whether you're following picks or publishing them, nothing on Insidr can be faked after the fact.</p>
+        <h2>From "who do I trust?" to their next tip in three steps.</h2>
+        <p>No guesswork and no screenshots of imaginary wins — just records you can check.</p>
       </div>
-      <div class="paths">
-        <div class="path path-bettor reveal">
-          <p class="path-kicker">For bettors</p>
-          <h3>Find someone worth following.</h3>
-          <ul class="path-list">
-            <li><span class="path-n">1</span><div><b>Discover</b><span>Browse tipsters ranked by real ROI across football, basketball and more, not follower count.</span></div></li>
-            <li><span class="path-n">2</span><div><b>Verify</b><span>Every settled pick, the odds taken and the running unit balance sit on their profile. Nothing gets quietly deleted.</span></div></li>
-            <li><span class="path-n">3</span><div><b>Subscribe</b><span>Unlock a tipster's picks monthly and get notified the moment they post. Miss out because they went quiet, and you're refunded automatically.</span></div></li>
-          </ul>
-          <a class="btn btn-ghost" href="https://www.insidr.tips">Open the app</a>
-        </div>
+      <div class="steps">
+        <div class="step reveal"><div class="step-n">STEP 01</div><h3>Discover</h3><p>Browse tipsters ranked by verified performance across football, basketball and more. Sort by ROI or recent form.</p></div>
+        <div class="step reveal"><div class="step-n">STEP 02</div><h3>Verify</h3><p>Open any profile and see the real record behind it — every settled pick, the odds taken, and the running unit balance. Nothing is hidden.</p></div>
+        <div class="step reveal"><div class="step-n">STEP 03</div><h3>Subscribe</h3><p>Unlock a tipster's premium picks with a monthly subscription and get a push notification the moment they post a new one.</p></div>
+      </div>
+    </div>
+  </section>
 
-        <div class="path path-tipster reveal" id="tipsters">
-          <p class="path-kicker">For tipsters</p>
-          <h3>Get paid for a record you can prove.</h3>
-          <ul class="path-list">
-            <li><span class="path-n">1</span><div><b>Publish</b><span>Post single picks and parlays, or combine markets into a bet builder, then attach your bookmaker's slip so the price is locked in as proof.</span></div></li>
-            <li><span class="path-n">2</span><div><b>Prove it</b><span>Every result settles itself from the official outcome. No manual edits, no picking which losses to hide.</span></div></li>
-            <li><span class="path-n">3</span><div><b>Get paid</b><span>Recurring income from monthly subscribers, plus direct tips from supporters, paid straight to your bank through Stripe.</span></div></li>
+  <section id="features" style="background:var(--bg-2);">
+    <div class="wrap">
+      <div class="sec-head reveal">
+        <p class="eyebrow">Why Insidr</p>
+        <h2>Built around one idea: proof over hype.</h2>
+      </div>
+      <div class="features">
+        <div class="feature reveal">
+          <div class="ficon"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2l8 4v6c0 5-3.4 8-8 10-4.6-2-8-5-8-10V6l8-4z"/><path d="M9 12l2 2 4-4"/></svg></div>
+          <h3>Verified track records</h3><p>Every ROI figure is calculated from settled bets, so a tipster can't fake a hot streak or quietly delete the losers.</p>
+        </div>
+        <div class="feature reveal">
+          <div class="ficon"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h16v5H4z"/><path d="M4 13h10v7H4z"/><path d="M18 13h2v7h-2z"/></svg></div>
+          <h3>Premium subscriptions</h3><p>Monthly VIP access to a tipster's picks, billed securely through Stripe. Cancel any time — access runs to the end of your period.</p>
+        </div>
+        <div class="feature reveal">
+          <div class="ficon"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 17l6-6 4 4 8-8"/><path d="M17 7h4v4"/></svg></div>
+          <h3>Unit-based tracking</h3><p>Follow every pick in virtual units and watch a tipster's bankroll move in real time — the honest way to measure a betting record.</p>
+        </div>
+        <div class="feature reveal">
+          <div class="ficon"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M12 3a15 15 0 0 1 0 18M12 3a15 15 0 0 0 0 18M3 12h18"/></svg></div>
+          <h3>Football, basketball &amp; more</h3><p>Coverage across major leagues and competitions, with new sports and markets added as the community grows.</p>
+        </div>
+        <div class="feature reveal">
+          <div class="ficon"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9z"/><path d="M13.7 21a2 2 0 0 1-3.4 0"/></svg></div>
+          <h3>Real-time tips</h3><p>Turn on notifications and hear from the tipsters you follow the instant they publish — no refreshing, no missing the value.</p>
+        </div>
+        <div class="feature reveal">
+          <div class="ficon"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v18M5 7h9a3 3 0 0 1 0 6H7a3 3 0 0 0 0 6h9"/></svg></div>
+          <h3>Fair by design</h3><p>If a tipster you subscribed to posts nothing during your billing cycle, you're eligible for a full refund. Simple as that.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="tipsters">
+    <div class="wrap">
+      <div class="band reveal">
+        <div class="band-grid">
+          <div>
+            <p class="eyebrow">For tipsters</p>
+            <h2>Built a winning record? Get paid for it.</h2>
+            <p>Turn your edge into income. Publish your picks, grow a following on a track record people can actually verify, and earn from monthly subscribers — payouts handled by Stripe.</p>
+            <a class="btn btn-gold btn-lg" href="https://www.insidr.tips">Become a tipster</a>
+          </div>
+          <ul class="earn-list">
+            <li><span class="ck"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12l4 4L19 6"/></svg></span> Recurring income from monthly subscribers — you keep the majority of every payment.</li>
+            <li><span class="ck"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12l4 4L19 6"/></svg></span> A verified profile that does your marketing — your real numbers earn the trust.</li>
+            <li><span class="ck"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12l4 4L19 6"/></svg></span> Secure Stripe payouts, straight to your bank — no chasing anyone for money.</li>
+            <li><span class="ck"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12l4 4L19 6"/></svg></span> Supporters can tip you directly when a pick lands.</li>
           </ul>
-          <a class="btn btn-gold" href="https://www.insidr.tips">Become a tipster</a>
         </div>
       </div>
     </div>
@@ -351,10 +421,11 @@
       </div>
       <div class="faq reveal">
         <details class="qa" open><summary>What is Insidr?</summary><p>Insidr is a sports tipster platform. Bettors find expert tipsters, check their verified records, and subscribe to get their premium picks. Tipsters build a following and earn from subscriptions.</p></details>
-        <details class="qa"><summary>Is Insidr a betting site? Can I bet real money here?</summary><p>No. Insidr is not a bookmaker and you never wager real money on the platform. Tips are opinions, tracked in virtual units for a fair, comparable record. You place any real bets with your own bookmaker, wherever you choose.</p></details>
-        <details class="qa"><summary>How do I know a tipster's stats are real?</summary><p>Every ROI and profit figure is computed automatically from settled picks, so a tipster can't inflate a record or hide losing bets. A bet builder (a pick combining several markets) needs a betslip screenshot checked against the declared price, so even a manually-entered price can't be faked.</p></details>
+        <details class="qa"><summary>Is Insidr a betting site? Can I bet real money here?</summary><p>No — Insidr is not a bookmaker and you never wager real money on the platform. Tips are opinions, tracked in virtual units for a fair, comparable record. You place any real bets with your own bookmaker, wherever you choose.</p></details>
+        <details class="qa"><summary>How do I know a tipster's stats are real?</summary><p>Every ROI and profit figure is computed automatically from settled picks. A tipster can't inflate a record or hide losing bets — the numbers you see are the numbers that happened.</p></details>
         <details class="qa"><summary>How much does it cost?</summary><p>Browsing tipsters and their public records is free. Each tipster sets their own monthly subscription price to unlock premium picks, and you can cancel any time.</p></details>
-        <details class="qa"><summary>What if a tipster I subscribed to goes quiet?</summary><p>If a tipster posts no qualifying picks during your billing cycle, you're eligible for a full refund of that period. The app surfaces the option to you automatically when it applies.</p></details>
+        <details class="qa"><summary>Can I become a tipster and earn?</summary><p>Yes. Once you've built a qualifying record you can turn on payouts through Stripe and earn from monthly subscribers — plus direct tips from supporters. Insidr takes a small platform fee; the rest is yours.</p></details>
+        <details class="qa"><summary>What if a tipster I subscribed to goes quiet?</summary><p>If a tipster posts no picks during your billing cycle, you're eligible for a full refund of that period. The app surfaces the option to you automatically when it applies.</p></details>
       </div>
     </div>
   </section>
@@ -363,7 +434,7 @@
     <div class="wrap">
       <div class="reveal">
         <h2>Stop guessing who to follow.</h2>
-        <p>Find a tipster with a record worth trusting, or start building one of your own.</p>
+        <p>Find tipsters with a record worth trusting — and start following the ones who prove it.</p>
         <div><a class="btn btn-primary btn-lg" href="https://www.insidr.tips">Open the app</a></div>
         <p class="cta-alt">Got a winning record of your own? <a href="https://www.insidr.tips">Become a tipster →</a></p>
       </div>
@@ -375,14 +446,15 @@
   <div class="wrap">
     <div class="ft-grid">
       <div class="ft-brand">
-        <span class="wordmark" role="img" aria-label="Insidr">Ins<span class="i">i</span>dr</span>
-        <p>Follow sports tipsters who prove they win. Verified records, real-time tips.</p>
+        <span class="logo-mark" role="img" aria-label="Insidr"></span>
+        <p>Follow sports tipsters who prove they win. Verified records, premium picks, real-time tips.</p>
       </div>
       <div class="ft-col">
         <h4>Product</h4>
         <a href="https://www.insidr.tips">Open the app</a>
         <a href="https://www.insidr.tips">Become a tipster</a>
         <a href="#how">How it works</a>
+        <a href="#features">Features</a>
       </div>
       <div class="ft-col">
         <h4>Company</h4>
@@ -402,6 +474,16 @@
 <script>
   (function () {
     var root = document.documentElement;
+    var btn = document.getElementById('themeToggle');
+    if (btn) {
+      btn.addEventListener('click', function () {
+        var cur = root.getAttribute('data-theme');
+        if (!cur) cur = window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+        root.setAttribute('data-theme', cur === 'dark' ? 'light' : 'dark');
+        drawSpark(hoverIdx);
+      });
+    }
+
     var canvas = document.getElementById('spark');
     var tip = document.getElementById('sparkTip');
     var hoverIdx = -1;
