@@ -42,6 +42,13 @@ const STATIC_URLS = [
 const esc = (v) => String(v ?? '').replace(/[&<>"']/g, (c) =>
   ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' })[c]);
 
+/** JSON for inside a <script> element. HTML escaping doesn't apply there, and JSON.stringify
+ *  leaves "<" alone, so a display name containing "</script>" would end the element and run
+ *  whatever follows. The \u escapes are still valid JSON and read back as the same text. */
+const SCRIPT_UNSAFE = new RegExp('[<>&' + String.fromCharCode(0x2028, 0x2029) + ']', 'g');   // U+2028/2029 end a line in JS
+const jsonForScript = (v) => JSON.stringify(v, null, 2).replace(SCRIPT_UNSAFE, (c) =>
+  '\\u' + c.charCodeAt(0).toString(16).padStart(4, '0'));
+
 /** Usernames become filesystem paths and URLs; anything outside this set is refused. */
 const SAFE_USERNAME = /^[A-Za-z0-9._-]{1,64}$/;
 
@@ -183,7 +190,7 @@ ${row('Settled tips', String(all.totalGames), '', n30, n30cls)}
 <meta name="twitter:image" content="${esc(ogImage)}">
 
 <script type="application/ld+json">
-${JSON.stringify({
+${jsonForScript({
   '@context': 'https://schema.org',
   '@type': 'ProfilePage',
   name: `${t.displayName || t.username} — tipster record`,
@@ -194,7 +201,7 @@ ${JSON.stringify({
     alternateName: `@${t.username}`,
     ...(avatar ? { image: avatar } : {}),
   },
-}, null, 2)}
+})}
 </script>
 
 <link rel="stylesheet" href="/t/assets/tipster.css">
